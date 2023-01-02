@@ -50,3 +50,8 @@ is the [Taxicab (or Manhattan) Geometry](https://en.wikipedia.org/wiki/Taxicab_g
 >>> terminal_nodes = [(0,0), (2,5), (1,7)]
 >>> steiner_tree_approx = kou_et_al(g, taxicab_distance, terminal_nodes, "weight")
 ```
+
+## Todo list
+1. Make some tests
+2. Implement newer and more efficient algorithms to approximate the optimal Steiner Tree
+3. Write more fine-grained dependencies
