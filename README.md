@@ -9,7 +9,7 @@ an undirected graph with non-negative edge weights and a subset of
 vertices, usually referred to as terminals, asks to find a tree of minimum 
 weight that contains all terminals (but may include additional 
 vertices). Since it isn't know any algorithm capable of finding the 
-solution in polynomial time, many approximations have been made.
+optimal solution in polynomial time, many approximations have been made.
 
 Note how NetworkX has already implemented a [function](https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.approximation.steinertree.steiner_tree.html)
 to return an approximation to the minimum Steiner tree of a graph, but the algorithm 
