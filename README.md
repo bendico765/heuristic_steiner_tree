@@ -24,7 +24,7 @@ pip install .
 ```
 
 ## Example
-Let's suppose we have a graph _g_ that reassembles a grid, where each node can be
+Let's suppose we have a graph _g_ that resemble a grid, where each node can be
 expressed using cartesian coordinates; this graph can easily be created
 using the [grid_graph](https://networkx.org/documentation/stable/reference/generated/networkx.generators.lattice.grid_graph.html)
 function of networkX. In this graph, it is possible to move
