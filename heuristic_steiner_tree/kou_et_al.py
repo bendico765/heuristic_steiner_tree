@@ -58,7 +58,7 @@ def remove_redundant_nodes(
 	# retrace the chain of neighbors until a terminal node is encountered
 	while leaf_non_terminal_nodes:
 		for node in leaf_non_terminal_nodes[:]:
-			neighbour = g.neighbors(node).__next__()  # get leaf neighbour
+			neighbour = next(g.neighbors(node))  # get leaf neighbour
 			if neighbour not in terminal_nodes:  # check if it is a terminal
 				leaf_non_terminal_nodes.append(neighbour)
 
