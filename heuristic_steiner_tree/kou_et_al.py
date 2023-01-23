@@ -1,5 +1,6 @@
 import networkx as nx
 import itertools as it
+from heuristic_steiner_tree import utils
 from typing import Callable
 
 
@@ -8,8 +9,8 @@ __all__ = ["kou_et_al"]
 
 def get_complete_distance_graph(
 		g_original: nx.Graph,
-		terminal_nodes: list[object],
-		heuristic_function: Callable[[object, object], float],
+		terminal_nodes: list,
+		heuristic_function: Callable,
 		weight: str = "weight"
 ) -> nx.Graph:
 	"""
@@ -40,7 +41,7 @@ def get_complete_distance_graph(
 
 def remove_redundant_nodes(
 		g_original: nx.Graph,
-		terminal_nodes: list[object]
+		terminal_nodes: list
 ) -> nx.Graph:
 	"""
 	Prune the Steiner Tree by removing the non-terminal nodes so that all the leaves
@@ -71,8 +72,8 @@ def remove_redundant_nodes(
 
 def kou_et_al(
 		g_original: nx.Graph,
-		heuristic_function: Callable[[object, object], float],
-		terminal_points: list[object],
+		heuristic_function: Callable,
+		terminal_points: list,
 		weight: str = "weight"
 ) -> nx.Graph:
 	"""
@@ -104,7 +105,7 @@ def kou_et_al(
 	for (start_node, end_node) in g2.edges():
 		shortest_path = nx.shortest_paths.astar_path(g_original, start_node, end_node, heuristic_function, weight)
 
-		for (edge_start, edge_end) in it.pairwise(shortest_path):
+		for (edge_start, edge_end) in utils.pairwise(shortest_path):
 			g3.add_edge(edge_start, edge_end, weight=g_original[edge_start][edge_end][weight])
 
 	# apply the MST on the sub graph

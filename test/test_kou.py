@@ -15,7 +15,7 @@ class KouTests(unittest.TestCase):
 		return abs(x1 - x2) + abs(y1 - y2)
 
 	@staticmethod
-	def __is_valid(g: nx.Graph, terminals: list[object]) -> bool:
+	def __is_valid(g: nx.Graph, terminals: list) -> bool:
 		"""
 		Checks if a given tree connects all the specified nodes
 
