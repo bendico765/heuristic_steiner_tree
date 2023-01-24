@@ -1,5 +1,6 @@
 import networkx as nx
 import itertools as it
+from heuristic_steiner_tree import utils
 from typing import Callable
 
 
@@ -8,8 +9,8 @@ __all__ = ["kou_et_al"]
 
 def get_complete_distance_graph(
 		g_original: nx.Graph,
-		terminal_nodes: list[object],
-		heuristic_function: Callable[[object, object], float],
+		terminal_nodes: list,
+		heuristic_function: Callable,
 		weight: str = "weight"
 ) -> nx.Graph:
 	"""
@@ -40,7 +41,7 @@ def get_complete_distance_graph(
 
 def remove_redundant_nodes(
 		g_original: nx.Graph,
-		terminal_nodes: list[object]
+		terminal_nodes: list
 ) -> nx.Graph:
 	"""
 	Prune the Steiner Tree by removing the non-terminal nodes so that all the leaves
@@ -59,19 +60,20 @@ def remove_redundant_nodes(
 	while leaf_non_terminal_nodes:
 		for node in leaf_non_terminal_nodes[:]:
 			neighbour = next(g.neighbors(node))  # get leaf neighbour
-			if neighbour not in terminal_nodes:  # check if it is a terminal
-				leaf_non_terminal_nodes.append(neighbour)
 
-			leaf_non_terminal_nodes.remove(node)
 			g.remove_node(node)
+			leaf_non_terminal_nodes.remove(node)
+
+			if g.degree(neighbour) == 1 and neighbour not in terminal_nodes:  # check if it is a terminal
+				leaf_non_terminal_nodes.append(neighbour)
 
 	return g
 
 
 def kou_et_al(
 		g_original: nx.Graph,
-		heuristic_function: Callable[[object, object], float],
-		terminal_points: list[object],
+		heuristic_function: Callable,
+		terminal_points: list,
 		weight: str = "weight"
 ) -> nx.Graph:
 	"""
@@ -87,6 +89,9 @@ def kou_et_al(
 	assumed to be one
 	:return: approximation to the minimum steiner tree
 	"""
+	if len(g_original.nodes()) == 1:
+		return g_original
+
 	# costruct the complete undirected distance graph
 	g1 = get_complete_distance_graph(g_original, terminal_points, heuristic_function, weight)
 
@@ -100,7 +105,7 @@ def kou_et_al(
 	for (start_node, end_node) in g2.edges():
 		shortest_path = nx.shortest_paths.astar_path(g_original, start_node, end_node, heuristic_function, weight)
 
-		for (edge_start, edge_end) in it.pairwise(shortest_path):
+		for (edge_start, edge_end) in utils.pairwise(shortest_path):
 			g3.add_edge(edge_start, edge_end, weight=g_original[edge_start][edge_end][weight])
 
 	# apply the MST on the sub graph

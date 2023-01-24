@@ -8,8 +8,8 @@ readme = "README.md"
 packages = [{include = "heuristic_steiner_tree"}]
 
 [tool.poetry.dependencies]
-python = "^3.10"
-networkx = "^2.8.8"
+python = "^3.8"
+networkx = "^2.4.0"
 
 
 [build-system]
