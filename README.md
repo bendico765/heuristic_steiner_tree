@@ -52,6 +52,4 @@ is the [Taxicab (or Manhattan) Geometry](https://en.wikipedia.org/wiki/Taxicab_g
 ```
 
 ## Todo list
-1. Make some tests
-2. Implement newer and more efficient algorithms to approximate the optimal Steiner Tree
-3. Write more fine-grained dependencies
+1. Implement newer and more efficient algorithms to approximate the optimal Steiner Tree
